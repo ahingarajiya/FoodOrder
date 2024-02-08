@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState ={
     cart : [],
     showCart : false,
-    showCheckout:false,
+    showCheckoutFlag:false,
     total:0
        
 }
@@ -19,10 +19,9 @@ export const mySlice = createSlice(
                 const findProduct = state.cart.findIndex(
                     (single) => single.id === iteam.id
                 );
-                console.log(findProduct)
                 if(findProduct ==-1){
                     iteam= {...iteam ,qut :1}
-                    state.cart.push(iteam)
+                    state.cart=[...state.cart,iteam]
                 }else{
                     state.cart[findProduct].qut = state.cart[findProduct].qut+1
                 }
@@ -43,28 +42,29 @@ export const mySlice = createSlice(
             },
             showModel:(state)=>{
                 i++
-                console.log(state.showCart , "aa" ,i);
                 const temp = state.showCart
                 state.showCart = !temp
-                console.log(state.showCart,"aa" , i);
 
             },
             showCheckout:(state)=>{
-                i++
-                console.log(state.showCheckout , "aa" ,i);
-                const temp = state.showCheckout
-                state.showCheckout = !temp
-                console.log(state.showCheckout,"aa" , i);
+                const temp = state.showCheckoutFlag
+                state.showCheckoutFlag = !temp
             },
             totalUpdate:(state,action)=>{
                 const total = action.payload
                 state.total= total
                 
+            },
+
+            initialStateCart:(state)=>{
+
+                state.cart = []
+                state.total=0
             }
         }
     }
 )
 
-export const {addtoCart,removeCart,showModel,showCheckout,totalUpdate} = mySlice.actions
+export const {addtoCart,removeCart,showModel,showCheckout,totalUpdate,initialStateCart} = mySlice.actions
 
 export default mySlice.reducer

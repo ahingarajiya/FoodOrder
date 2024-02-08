@@ -11,7 +11,6 @@ export default function Header() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   function showCart() {
-    console.log("header");
       if (cart.length == 0) {
         return
       }

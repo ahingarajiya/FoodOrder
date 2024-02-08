@@ -1,30 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import SingleMeal from './SingleMeal';
-// app.get('/meals')
+import SingleMeal from "./SingleMeal"
+import useHttp from './useHTTP';
+import Error from './Error';
 
+
+const requestConfig = {};
+
+let mealData = []
 export default function Meals() {
+  const { 
+    data,
+    isLoading,
+    error,
+  } = useHttp('http://localhost:3000/meals', requestConfig, []);
 
- const [loadmeal, setLoadmeal] = useState([])
+  if (isLoading) {
+    return <p style={{textAline : "center"}}>Fetching meals...</p>;
+  }
 
-    
-useEffect(()=>{
-    const featchmeans = async ()=>{
-        const response =  await fetch("http://localhost:3000/meals")
-        const result = await response.json();
-        setLoadmeal(result)
-    }
-
-    featchmeans( )
-},[]);
-
+  // if (!data) {
+  //   return <p>No meals found.</p>
+  // }
+  // if(data.length>0){
+  //   // mealData = [...data]
+  // }
+  if(error){
+    return <Error title="Failed meal load" msg={error}/>
+  }
+;
   return (
-   <>
-   <ul id='meals'>
-    { loadmeal.map((singleMeal) => (
-        <SingleMeal data={singleMeal} key={singleMeal.id}/>
-    ))}
-    
-   </ul>
-   </>
-  )
+    <ul id="meals">
+    {data.length === 0 ? (
+      <p></p> 
+    ) : (
+      data.map((meal) => <SingleMeal key={meal.id} data={meal} />)
+    )}
+  </ul>
+  
+  );
 }

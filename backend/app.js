@@ -1,27 +1,28 @@
-import fs from 'node:fs/promises';
+import fs from "node:fs/promises";
 
-import bodyParser from 'body-parser';
-import express from 'express';
+import bodyParser from "body-parser";
+import express from "express";
+import e from "express";
 
 const app = express();
 console.log("backend running");
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
 
-app.get('/meals', async (req, res) => {
-  const meals = await fs.readFile('./data/available-meals.json', 'utf8');
-  res.json(JSON.parse(meals));
+app.get("/meals", async (req, res) => {
+  const meals = await fs.readFile("./data/available-meals.json", "utf8");
+  res.json(meals);
 });
 
-app.post('/orders', async (req, res) => {
+app.post("/orders", async (req, res) => {
   const orderData = req.body.order;
 
   if (orderData === null || orderData.items === null || orderData.items === []) {
@@ -53,7 +54,11 @@ app.post('/orders', async (req, res) => {
     id: (Math.random() * 1000).toString(),
   };
   const orders = await fs.readFile('./data/orders.json', 'utf8');
-  const allOrders = JSON.parse(orders);
+  if(orders){
+
+    const allOrders = JSON.parse(orders);
+  }
+ const allOrders= [];
   allOrders.push(newOrder);
   await fs.writeFile('./data/orders.json', JSON.stringify(allOrders));
   res.status(201).json({ message: 'Order created!' });
