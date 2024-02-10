@@ -28,9 +28,9 @@ export default function SingleMeal({ data }) {
             <Button onClick={(data) => handelClickadd(data)}>
                 Add to cart
             </Button>
-            <Button onClick={(data) => handelClickremove(data)}>
+{/*             <Button onClick={(data) => handelClickremove(data)}>
                 Remove to cart
-            </Button>
+            </Button> */}
         </p>
       </article>
     </li>
