@@ -19,7 +19,7 @@ export default function CheckOut() {
     e.preventDefault();
     const fb = new FormData(e.target);
     const formData = Object.fromEntries(fb.entries());
-    fetch('http://localhost:3001/orders', {
+    fetch('http://localhost:3002/orders', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

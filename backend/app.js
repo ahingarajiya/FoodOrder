@@ -64,4 +64,5 @@ app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
 
-app.listen(3001);
+app.listen(3002);
+const port = process.env.PORT || 3000;

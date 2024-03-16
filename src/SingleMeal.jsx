@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addtoCart, removeCart } from "./myslice";
 
 export default function SingleMeal({ data }) {
-    const imgsrc = `http://localhost:3001/${data.image}`
+    const imgsrc = `http://localhost:3002/${data.image}`
 
     const dispatch = useDispatch();
 
