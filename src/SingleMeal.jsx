@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addtoCart, removeCart } from "./myslice";
 
 export default function SingleMeal({ data }) {
-    const imgsrc = `http://localhost:3000/${data.image}`
+    const imgsrc = `http://localhost:3001/${data.image}`
 
     const dispatch = useDispatch();
 
@@ -27,6 +27,9 @@ export default function SingleMeal({ data }) {
         <p className="meal-item-actions ">
             <Button onClick={(data) => handelClickadd(data)}>
                 Add to cart
+            </Button>
+            <Button onClick={(data) => handelClickremove(data)}>
+                Remove to cart
             </Button>
         </p>
       </article>
