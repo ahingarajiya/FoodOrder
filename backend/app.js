@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 
 import bodyParser from "body-parser";
 import express from "express";
+import { log } from "node:console";
 
 const app = express();
 
@@ -64,5 +65,7 @@ app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
 
-app.listen(3002);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
+app.listen(port, () => {
+  console.log(`server at ${port}`);
+});
